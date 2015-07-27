@@ -61,4 +61,7 @@ add_executable(waypoint_client src/waypoint_client.cpp)
 add_dependencies(waypoint_client ${catkin_EXPORTED_TARGETS})
 target_link_libraries(waypoint_client ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
+add_executable(trajectory_key src/trajectory_key.cpp)
+add_dependencies(trajectory_key ${catkin_EXPORTED_TARGETS})
+target_link_libraries(trajectory_key ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 

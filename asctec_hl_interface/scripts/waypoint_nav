@@ -38,15 +38,13 @@ import rospy
 import actionlib
 import re
 import time
-import sys
-import os
 
 import asctec_hl_comm.msg
 
-def parseWaypoints(file):
+def parseWaypoints():
     rospy.loginfo("parsing waypoint list...")
     # read file
-    text = open(file,"r").readlines()
+    text = open("sampleways.txt","r").readlines()
     waypoints = list();
 
     linecounter = 0
@@ -119,17 +117,11 @@ def feedback_cb(feedback):
     rospy.loginfo("MAV currently at: " + "\t" + str(feedback.current_pos.x) + "\t" + str(feedback.current_pos.y) + "\t" + str(feedback.current_pos.z))
 
 if __name__ == '__main__':
-    # Default sample waypoint file
-    waypoint_file = "sampleways.txt"
-    if len(sys.argv) > 1:
-        waypoint_file = str(sys.argv[1])
-        if not os.path.isfile(waypoint_file) or not os.access(waypoint_file, os.R_OK):
-            sys.exit("%s is not a valid file or it is not readable" % waypoint_file)
     try:
         # Initializes a rospy node so that the SimpleActionClient can
         # publish and subscribe over ROS.
         rospy.init_node('wpclient')
-        liste = parseWaypoints(waypoint_file);
+        liste = parseWaypoints();
         for line in liste:
             waypoint_client(line)
     except rospy.ROSInterruptException:
